@@ -4,17 +4,20 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+var config = require('./config.dev');
+var mongoose = require('mongoose');
+var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
+var passport = require('passport');
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var apiUsersRouter = require('./routes/api/users');
 
-var config = require('./config.dev');
-var mongoose = require('mongoose');
+var app = express();
 
 //Connect to MongoDB
 mongoose.connect(config.mongodb, {useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true });
-
-var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
