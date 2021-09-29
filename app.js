@@ -21,7 +21,7 @@ var apiAuthRouter = require('./routes/api/auth');
 var app = express();
 
 //Connect to MongoDB
-mongoose.connect(config.mongodb, {useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true });
+mongoose.connect(config.mongodb, { useNewUrlParser: true });
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
