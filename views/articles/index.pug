@@ -1,10 +1,9 @@
 extends ../layout
 
 block content
-  h1 Blog
-  for article in articles
 
-    div.article
-      a(href='articles/' +   article.slug)
-        h2= article.title
-        div!= article.description
+  h1 Blog
+
+  div#app
+
+  script(src='/dist/js/articles.app.min.js')

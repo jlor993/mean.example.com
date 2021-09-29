@@ -23,18 +23,17 @@ var articlesApp = (function() {
             for (let i=0; i<articles.length; i++) {
                 rows = rows + `<tr>
                 <td>
-                    <a href="#view-${articles[i]['_id']}">${articles[i]['last_name']}, ${articles[i]['first_name']}</a>
+                    <a href="#view-${articles[i]['_id']}">${articles[i]['title']}</a>
                 </td>
-                <td>${articles[i]['title']}</td>
                 <td>${articles[i]['description']}</td>
                 </tr>`;
             }
 
             table = `<div class="card">
                 <div class="card-header clearfix">
-                <h2 class="h3 float-left">articles</h2>
+                <h2 class="h3 float-left">Articles</h2>
                 <div class="float-right">
-                    <a href="#create" class="btn btn-primary">New article</a>
+                    <a href="#create" class="btn btn-primary">New Article</a>
                 </div>
                 </div>
                 <div class="table-responsive">
@@ -54,43 +53,54 @@ var articlesApp = (function() {
         }
     }
       
-    function createarticle(){
+    function createArticle(){
         var app = document.getElementById('app');
 
         var form =  `
             <div class="card">
                 <div class="card-header clearfix">
-                <h2 class="h3 float-left">Create a New article</h2>
+                <h2 class="h3 float-left">Create a New Article</h2>
                 <div class="float-right">
                     <a href="#" class="btn btn-primary">Cancel</a>
                 </div>
                 </div>
                 <div class="card-body">
-                <form id="createarticle" class="card-body">
+                <form id="createArticle" class="card-body">
                     <div id="formMsg" class="alert alert-danger text-center">Your form has errors</div>
 
                     <div class="row">
-                    <div class="form-group col-md-6">
-                        <label for="first_name">First Name</label>
-                        <input type="text" id="first_name" name="first_name" class="form-control" required>
-                    </div>
-
-                    <div class="form-group col-md-6">
-                        <label for="last_name">Last Name</label>
-                        <input type="text" id="last_name" name="last_name" class="form-control" required>
-                    </div>
+                        <div class="form-group col-md-6">
+                            <label for="title">Title</label>
+                            <input type="text" id="title" name="title" class="form-control" required>
+                        </div>
                     </div>
 
                     <div class="row">
-                    <div class="form-group col-md-6">
-                        <label for="articlename">articlename</label>
-                        <input type="text" id="articlename" name="articlename" class="form-control" required>
+                        <div class="form-group col-md-6">
+                            <label for="body">Body</label>
+                            <textarea id="body" name="body" class="form-control"></textarea>
+                        </div>
                     </div>
 
-                    <div class="form-group col-md-6">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" class="form-control" required>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="keywords">Keywords</label>
+                            <input type="text" id="keywords" name="keywords" class="form-control" required>
+                        </div>
                     </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="description">Description</label>
+                            <input type="text" id="description" name="description" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="published">Publish Date</label>
+                            <input type="date" id="published" name="published" class="form-control" required>
+                        </div>
                     </div>
 
                     <div class="text-right">
@@ -123,14 +133,16 @@ var articlesApp = (function() {
 
             card = `<div class="card">
             <div class="card-header clearfix">
-                <h2 class="h3 float-left">${data.article.first_name} ${data.article.last_name}</h2>
+                <h2 class="h3 float-left">${data.article.title}</h2>
                 <div class="float-right">
                 <a href="#edit-${data.article._id}" class="btn btn-primary">Edit</a>
                 </div>
             </div>
             <div class="card-body">
-                <div>${data.article.articlename}</div>
-                <div>${data.article.email}</div>
+                <div>${data.article.body}</div>
+                <div>${data.article.keywords}</div>
+                <div>${data.article.description}</div>
+                <div>${data.article.published}</div>
             </div>
             </div>`;
 
@@ -154,6 +166,8 @@ var articlesApp = (function() {
         xhr.onload = function(){
             let app = document.getElementById('app');
             let data = JSON.parse(xhr.response);
+            
+            let date = data.article.published.substring(0, 10);
 
             var form =  `
                 <div class="card">
@@ -164,37 +178,48 @@ var articlesApp = (function() {
                     </div>
                 </div>
                 <div class="card-body">
-                    <form id="editarticle" class="card-body">
-                    <input type="hidden" id="_id" name="_id" value="${data.article._id}">
-                    <div id="formMsg" class="alert alert-danger text-center">Your form has errors</div>
+                    <form id="editArticle" class="card-body">
+                        <input type="hidden" id="_id" name="_id" value="${data.article._id}">
+                        <div id="formMsg" class="alert alert-danger text-center">Your form has errors</div>
 
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                        <label for="first_name">First Name</label>
-                        <input type="text" id="first_name" name="first_name" class="form-control" value="${data.article.first_name}" required>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="title">Title</label>
+                                <input type="text" id="title" name="title" class="form-control" value="${data.article.title}" required>
+                            </div>
                         </div>
 
-                        <div class="form-group col-md-6">
-                        <label for="last_name">Last Name</label>
-                        <input type="text" id="last_name" name="last_name" class="form-control" value="${data.article.last_name}" required>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                        <label for="articlename">articlename</label>
-                        <input type="text" id="articlename" name="articlename" class="form-control" value="${data.article.articlename}" required>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="body">Body</label>
+                                <textarea id="body" name="body" class="form-control">${data.article.body}</textarea>
+                            </div>
                         </div>
 
-                        <div class="form-group col-md-6">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" class="form-control" value="${data.article.email}" required>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="keywords">Keywords</label>
+                                <input type="text" id="keywords" name="keywords" class="form-control" value="${data.article.keywords}" required>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="text-right">
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="description">Description</label>
+                                <input type="text" id="description" name="description" class="form-control" value="${data.article.description}" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="published">Publish Date</label>
+                                <input type="date" id="published" name="published" class="form-control" value="${date}" required>
+                            </div>
+                        </div>
+
+                        <div class="text-right">
                         <input type="submit" value="Submit" class="btn btn-lg btn-primary btn-sm-block">
-                    </div>
+                        </div>
                     </form>
                 </div>
                 </div>
@@ -204,7 +229,7 @@ var articlesApp = (function() {
             `;
 
             app.innerHTML=form;
-            processRequest('editarticle', '/api/articles', 'PUT');
+            processRequest('editArticle', '/api/articles', 'PUT');
         }
     }
 
@@ -265,16 +290,13 @@ var articlesApp = (function() {
             <div class="card-body text-center">
                 <div>
                 Are you sure you want to delete
-                <strong>${data.article.first_name} ${data.article.last_name}</strong>
+                <strong>${data.article.title}</strong>
                 </div>
-
-                <div>articlename: <strong>${data.article.articlename}</strong></div>
-                <div>Email: <strong>${data.article.email}</strong></div>
 
                 <div class="text-center">
                 <br>
-                <a onclick="articlesApp.deletearticle('${data.article._id}');" class="btn btn-lg btn-danger text-white">
-                Yes delete ${data.article.articlename}
+                <a onclick="articlesApp.deleteArticle('${data.article._id}');" class="btn btn-lg btn-danger text-white">
+                Yes, Delete It
                 </a>
                 </div>
 
