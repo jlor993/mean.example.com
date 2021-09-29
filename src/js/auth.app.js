@@ -75,7 +75,7 @@ var authApp = (function() {
 
     app.innerHTML=form;
   }
-  
+
   function postRequest(formId, url){
     let form = document.getElementById(formId);
     form.addEventListener('submit', function(e){
