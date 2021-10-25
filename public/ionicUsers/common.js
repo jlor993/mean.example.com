@@ -438,6 +438,141 @@ const openURL = async (url, ev, direction, animation) => {
 
 
 
+/***/ }),
+
+/***/ 2891:
+/*!*********************************!*\
+  !*** ./src/app/auth.service.ts ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "AuthService": () => (/* binding */ AuthService)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ 4762);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 7716);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common/http */ 1841);
+
+
+
+const httpOptions = {
+    headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__.HttpHeaders({ 'Content-Type': 'application/json' })
+};
+let AuthService = class AuthService {
+    constructor(http) {
+        this.http = http;
+        let l = window.location;
+        let host;
+        if (l.port >= '8100') {
+            host = 'localhost:3000';
+        }
+        else {
+            host = l.hostname + ((l.port.length > 0) ? ':' + l.port : '');
+        }
+        this.url = `${l.protocol}//${host}/api/auth/`;
+    }
+    register(user) {
+        return this.http.post(this.url + 'register', user, httpOptions);
+    }
+    login(user) {
+        return this.http.post(this.url + 'login', user, httpOptions);
+    }
+    logout() {
+        return this.http.delete(this.url + 'logout');
+    }
+};
+AuthService.ctorParameters = () => [
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_0__.HttpClient }
+];
+AuthService = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_2__.Injectable)({
+        providedIn: 'root'
+    })
+], AuthService);
+
+
+
+/***/ }),
+
+/***/ 1813:
+/*!*******************************!*\
+  !*** ./src/app/user.model.ts ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "User": () => (/* binding */ User)
+/* harmony export */ });
+class User {
+}
+
+
+/***/ }),
+
+/***/ 474:
+/*!**********************************!*\
+  !*** ./src/app/users.service.ts ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "UsersService": () => (/* binding */ UsersService)
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ 4762);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 7716);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common/http */ 1841);
+
+
+
+const httpOptions = {
+    headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__.HttpHeaders({ 'Content-Type': 'application/json' })
+};
+let UsersService = class UsersService {
+    constructor(http) {
+        this.http = http;
+        let l = window.location;
+        let host;
+        if (l.port >= '8100') {
+            host = 'localhost:3000';
+        }
+        else {
+            host = l.hostname + ((l.port.length > 0) ? ':' + l.port : '');
+        }
+        this.url = `${l.protocol}//${host}/api/users/`;
+    }
+    getUsers() {
+        return this.http.get(this.url, httpOptions);
+    }
+    getUser(id) {
+        return this.http.get(`${this.url}${id}`, httpOptions);
+    }
+    updateUser(user) {
+        return this.http.put(this.url, user, httpOptions);
+    }
+    deleteUser(id) {
+        return this.http.delete(this.url + id);
+    }
+    createUser(user) {
+        return this.http.post(this.url, user, httpOptions);
+    }
+};
+UsersService.ctorParameters = () => [
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_0__.HttpClient }
+];
+UsersService = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_2__.Injectable)({
+        providedIn: 'root'
+    })
+], UsersService);
+
+
+
 /***/ })
 
 }]);

@@ -1,61 +1,5 @@
 (self["webpackChunkionicUsers"] = self["webpackChunkionicUsers"] || []).push([["src_app_login_login_module_ts"],{
 
-/***/ 2891:
-/*!*********************************!*\
-  !*** ./src/app/auth.service.ts ***!
-  \*********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "AuthService": () => (/* binding */ AuthService)
-/* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ 4762);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 7716);
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common/http */ 1841);
-
-
-
-const httpOptions = {
-    headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__.HttpHeaders({ 'Content-Type': 'application/json' })
-};
-let AuthService = class AuthService {
-    constructor(http) {
-        this.http = http;
-        let l = window.location;
-        let host;
-        if (l.port >= '8100') {
-            host = 'localhost:3000';
-        }
-        else {
-            host = l.hostname + ((l.port.length > 0) ? ':' + l.port : '');
-        }
-        this.url = `${l.protocol}//${host}/api/auth/`;
-    }
-    register(user) {
-        return this.http.post(this.url + 'register', user, httpOptions);
-    }
-    login(user) {
-        return this.http.post(this.url + 'login', user, httpOptions);
-    }
-    logout() {
-        return this.http.delete(this.url + 'logout');
-    }
-};
-AuthService.ctorParameters = () => [
-    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_0__.HttpClient }
-];
-AuthService = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__decorate)([
-    (0,_angular_core__WEBPACK_IMPORTED_MODULE_2__.Injectable)({
-        providedIn: 'root'
-    })
-], AuthService);
-
-
-
-/***/ }),
-
 /***/ 5393:
 /*!***********************************************!*\
   !*** ./src/app/login/login-routing.module.ts ***!
@@ -148,10 +92,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "LoginPage": () => (/* binding */ LoginPage)
 /* harmony export */ });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! tslib */ 4762);
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! tslib */ 4762);
 /* harmony import */ var _raw_loader_login_page_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !raw-loader!./login.page.html */ 6770);
 /* harmony import */ var _login_page_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./login.page.scss */ 1339);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/core */ 7716);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/core */ 7716);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ 9895);
 /* harmony import */ var _auth_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../auth.service */ 2891);
 /* harmony import */ var _user_model__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../user.model */ 1813);
 
@@ -160,9 +105,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 let LoginPage = class LoginPage {
-    constructor(authService) {
+    constructor(authService, router) {
         this.authService = authService;
+        this.router = router;
         this.user = new _user_model__WEBPACK_IMPORTED_MODULE_3__.User();
     }
     ngOnInit() {
@@ -172,7 +119,7 @@ let LoginPage = class LoginPage {
             this.errorMessage = 'Invalid Credentials';
         }
         if (response.success === true) {
-            window.location.href = '/#/users';
+            this.router.navigate(['/users']);
         }
     }
     onSubmit() {
@@ -182,33 +129,17 @@ let LoginPage = class LoginPage {
     }
 };
 LoginPage.ctorParameters = () => [
-    { type: _auth_service__WEBPACK_IMPORTED_MODULE_2__.AuthService }
+    { type: _auth_service__WEBPACK_IMPORTED_MODULE_2__.AuthService },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__.Router }
 ];
-LoginPage = (0,tslib__WEBPACK_IMPORTED_MODULE_4__.__decorate)([
-    (0,_angular_core__WEBPACK_IMPORTED_MODULE_5__.Component)({
+LoginPage = (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_6__.Component)({
         selector: 'app-login',
         template: _raw_loader_login_page_html__WEBPACK_IMPORTED_MODULE_0__.default,
         styles: [_login_page_scss__WEBPACK_IMPORTED_MODULE_1__.default]
     })
 ], LoginPage);
 
-
-
-/***/ }),
-
-/***/ 1813:
-/*!*******************************!*\
-  !*** ./src/app/user.model.ts ***!
-  \*******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "User": () => (/* binding */ User)
-/* harmony export */ });
-class User {
-}
 
 
 /***/ }),
